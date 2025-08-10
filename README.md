@@ -13,5 +13,4 @@ Hide and extract secret messages in images (currently supports BMP format).
 ```bash
 git clone https://github.com/tkalum/veilbit.git
 cd veilbit
-make
-sudo make install
+cmake .. && make
