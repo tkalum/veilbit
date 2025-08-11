@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
 
         for (int i = 2; i < argc; i++) {
             if (strcmp(argv[i], "-i") == 0) input = argv[++i];
+            else if (input == NULL) input = argv[i];
         }
 
         if (!input) {

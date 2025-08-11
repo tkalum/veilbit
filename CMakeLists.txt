@@ -1,18 +1,31 @@
 cmake_minimum_required(VERSION 3.10)
-project(veilbit C)
+project(YourProjectName)
 
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+# Set C++ standard (recommended)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# List all source files
-set(SOURCES
-    src/main.c
-    src/bmp.c
-    src/veilbit.c
-)
+# Add your source files
+file(GLOB SOURCES "src/*.cpp" "src/*.c")
+file(GLOB HEADERS "include/*.h" "include/*.hpp")
 
 # Create executable
-add_executable(veilbit ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-# Include directory
-target_include_directories(veilbit PRIVATE include)
+# Platform-specific configurations
+if(WIN32)
+    # Windows-specific settings
+    add_definitions(-DWINDOWS_PLATFORM)
+    # Example: link against Windows-specific libraries
+    # target_link_libraries(${PROJECT_NAME} some_windows_lib)
+elseif(UNIX AND NOT APPLE)
+    # Linux-specific settings
+    add_definitions(-DLINUX_PLATFORM)
+    # Example: link against pthread
+    find_package(Threads REQUIRED)
+    target_link_libraries(${PROJECT_NAME} Threads::Threads)
+endif()
+
+# Common dependencies (for both platforms)
+# find_package(SomeCommonDependency REQUIRED)
+# target_link_libraries(${PROJECT_NAME} SomeCommonDependency)
