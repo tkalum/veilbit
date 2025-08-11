@@ -1,10 +1,11 @@
 #include "veilbit.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 // Forward declarations
 VeilBitStatus hide_bmp(const char *input, const char *output, const char *msg);
-VeilBitStatus extract_bmp(const char *input, char *msg, size_t max_len);
+char* extract_bmp(const char *input);
 
 VeilBitStatus veilbit_hide(const char *input, const char *output, const char *message) {
     VeilBitFormat format = veilbit_detect_format(input);
@@ -19,17 +20,30 @@ VeilBitStatus veilbit_hide(const char *input, const char *output, const char *me
     }
 }
 
-VeilBitStatus veilbit_extract(const char *input, char *message, size_t max_len) {
+char* veilbit_extract(const char* input, const char* output) {
     VeilBitFormat format = veilbit_detect_format(input);
-    
+    char* message = NULL;
+
     switch (format) {
         case VEILBIT_BMP:
-            return extract_bmp(input, message, max_len);
-        case VEILBIT_PNG:
-            return VEILBIT_UNSUPPORTED_FORMAT;
+            message = extract_bmp(input);
+            break;
         default:
-            return VEILBIT_UNSUPPORTED_FORMAT;
+            return NULL;
     }
+
+    if (message && output) {
+        FILE* out = fopen(output, "w");
+        if (out) {
+            fprintf(out, "%s", message);
+            fclose(out);
+        } else {
+            free(message);
+            return NULL;
+        }
+    }
+
+    return message;
 }
 
 VeilBitFormat veilbit_detect_format(const char *filename) {
@@ -44,7 +58,6 @@ VeilBitFormat veilbit_detect_format(const char *filename) {
     if (header[0] == 'B' && header[1] == 'M') {
         return VEILBIT_BMP;
     }
-    // PNG detection would go here
-    
+ 
     return VEILBIT_UNKNOWN;
 }

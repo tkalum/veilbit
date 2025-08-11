@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 // Error codes
 typedef enum {
@@ -21,8 +22,7 @@ typedef enum {
 
 // Core functions
 VeilBitStatus veilbit_hide(const char *input, const char *output, const char *message);
-VeilBitStatus veilbit_extract(const char *input, char *message, size_t max_len);
-
+char* veilbit_extract(const char* input, const char* output);
 // Format detection
 VeilBitFormat veilbit_detect_format(const char *filename);
 
