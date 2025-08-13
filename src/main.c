@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (strcmp(argv[1], "hide") == 0) {
-        char *input = NULL, *output = NULL, *message = NULL;
+        char *input = NULL, *output = "output.bmp", *message = NULL;
         
         for (int i = 2; i < argc; i++) {
             if (strcmp(argv[i], "-i") == 0) input = argv[++i];
