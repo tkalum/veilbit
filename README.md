@@ -13,7 +13,7 @@ It provides a command-line interface for hiding messages inside image files usin
 ### Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/veilbit.git
+git clone https://github.com/tkalum/veilbit.git
 cd veilbit
 ```
 
@@ -56,7 +56,3 @@ The resulting executable will be in the `build` directory.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For questions or feedback, please contact [veilbit.support@example.com](mailto:veilbit.support@example.com).
