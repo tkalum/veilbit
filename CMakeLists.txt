@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 project(veilbit)
 
 # List all source files
@@ -6,6 +6,7 @@ set(SOURCES
     src/main.c
     src/bmp.c
     src/veilbit.c 
+    src/jpeg.c
 )
 
 # Create executable

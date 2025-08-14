@@ -7,6 +7,9 @@
 VeilBitStatus hide_bmp(const char *input, const char *output, const char *msg);
 char* extract_bmp(const char *input);
 
+VeilBitStatus hide_jpeg(const char *input, const char *output, const char *msg);
+char* extract_jpeg(const char *input);
+
 char*veilbit_read_file(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) return NULL;
@@ -29,8 +32,8 @@ VeilBitStatus veilbit_hide(const char *input, const char *output, const char *me
     switch (format) {
         case VEILBIT_BMP:
             return hide_bmp(input, output, message);
-        case VEILBIT_PNG:
-            return VEILBIT_UNSUPPORTED_FORMAT;
+        case VEILBIT_JPEG:
+            return hide_jpeg(input, output, message);
         default:
             return VEILBIT_UNSUPPORTED_FORMAT;
     }
@@ -42,7 +45,10 @@ char* veilbit_extract(const char* input, const char* output) {
 
     switch (format) {
         case VEILBIT_BMP:
-            message = extract_bmp(input);
+            message = extract_bmp(input); 
+            break;
+        case VEILBIT_JPEG:
+            message = extract_jpeg(input);
             break;
         default:
             return NULL;
@@ -73,6 +79,10 @@ VeilBitFormat veilbit_detect_format(const char *filename) {
     // BMP detection
     if (header[0] == 'B' && header[1] == 'M') {
         return VEILBIT_BMP;
+    }
+    // JPEG detection
+    if (header[0] == 0xFF && header[1] == 0xD8 && header[2] == 0xFF) {
+        return VEILBIT_JPEG;
     }
  
     return VEILBIT_UNKNOWN;
