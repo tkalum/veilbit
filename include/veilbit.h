@@ -26,4 +26,8 @@ char* veilbit_extract(const char* input, const char* output);
 // Format detection
 VeilBitFormat veilbit_detect_format(const char *filename);
 
+// size checking
+size_t veilbit_get_max_message_size(const char *image_file);
+char* veilbit_read_file(const char *filename);
+
 #endif // VEILBIT_H

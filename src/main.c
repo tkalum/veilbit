@@ -18,18 +18,28 @@ int main(int argc, char *argv[]) {
 
     if (strcmp(argv[1], "hide") == 0) {
         char *input = NULL, *output = "output.bmp", *message = NULL;
+        int is_message_file = 0;
         
         for (int i = 2; i < argc; i++) {
             if (strcmp(argv[i], "-i") == 0) input = argv[++i];
             else if (strcmp(argv[i], "-o") == 0) output = argv[++i];
             else if (strcmp(argv[i], "-m") == 0) message = argv[++i];
-            else if (input == NULL) input = argv[i];
-            else if (message == NULL) message = argv[i];
-            else if (output == NULL) output = argv[i]; 
+            else if (strcmp(argv[i], "-f") == 0) {
+                message = veilbit_read_file(argv[++i]);
+                if (message == NULL) {
+                    fprintf(stderr, "Error reading message file\n");
+                    return 1;
+                }
+                is_message_file = 1;
+            }
+            else if (!input) input = argv[i];
+            else if (!message) message = argv[i];
+            else if (!output) output = argv[i]; 
         }
 
         if (!input || !output || !message) {
             print_help();
+            if (is_message_file) free(message);
             return 1;
         }
 
