@@ -14,3 +14,6 @@ add_executable(veilbit ${SOURCES})
 
 # Tell compiler where to find headers
 target_include_directories(veilbit PRIVATE include)
+
+find_package(JPEG REQUIRED)
+target_link_libraries(veilbit PRIVATE ${JPEG_LIBRARIES})
