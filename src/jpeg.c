@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <jpeglib.h>
 
 #define JPEG_HEADER_SIZE 500
 
@@ -28,9 +29,20 @@ static uint8_t extract_byte(FILE* file) {
 
 // Hide message in jpeg file
 VeilBitStatus hide_jpeg(const char* input, const char* output, const char* msg) {
+    struct jpeg_decompress_struct dinfo;
+    struct jpeg_compress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+    
     FILE* in = fopen(input, "rb");
     FILE* out = fopen(output, "wb");
     if (!in || !out) return VEILBIT_FILE_ERROR;
+
+    dinfo.err = jpeg_std_error(&jerr);
+    jpeg_create_decompress(&dinfo);
+    jpeg_stdio_src(&dinfo, in);
+    jpeg_read_header(&dinfo, TRUE);
+
+    
 
     // 1. Copy jpeg header
     uint8_t header[JPEG_HEADER_SIZE];
