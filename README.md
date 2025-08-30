@@ -6,7 +6,11 @@ It provides a command-line interface for hiding messages inside image files usin
 ## Features
 
 - Command-line tool for hiding messages in images
-- Only bmp format support (PNG adding soon...)
+- Supports multiple image formats:
+  - BMP
+  - PNG
+  - JPEG
+- Text file input/output support
 
 ## Installation
 
@@ -46,12 +50,23 @@ The resulting executable will be in the `build` directory.
 ### Hide a message in an image
 
 ```bash
-./veilbit hide -i input.bmp -m "Secret message" [-o output.bmp]
+veilbit hide -i <input_image> -m "Secret message" [-o <output_image>]
+veilbit hide -i <input_image> -f <message_file> [-o <output_image>]
 ```
 
-- `-i` specifies the input image file (BMP format).
-- `-m` specifies the message to hide.
-- `-o` (optional) specifies the output image file. Defaults to `output.bmp` if not provided.
+- `-i` specifies the input image file (supports BMP, PNG, and JPEG)
+- `-m` specifies the message to hide directly
+- `-f` specifies a text file containing the message to hide
+- `-o` specifies the output image file.
+
+### Extract a hidden message
+
+```bash
+veilbit extract -i <input_image> [-o <output_file>]
+```
+
+- `-i` specifies the image file containing the hidden message
+- `-o` (optional) specifies the output text file. If not provided, displays message in console
 
 ## License
 

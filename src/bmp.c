@@ -27,7 +27,7 @@ static uint8_t extract_byte(FILE* file) {
 }
 
 // Hide message in BMP file
-VeilBitStatus hide_bmp(const char* input, const char* output, const char* msg) {
+VeilBitStatus hide_bmp(const char* input, const char* output, const char* msg ) {
     FILE* in = fopen(input, "rb");
     FILE* out = fopen(output, "wb");
     if (!in || !out) return VEILBIT_FILE_ERROR;

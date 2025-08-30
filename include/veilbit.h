@@ -18,6 +18,7 @@ typedef enum {
 typedef enum {
     VEILBIT_BMP,
     VEILBIT_JPEG,
+    VEILBIT_PNG,
     VEILBIT_UNKNOWN
 } VeilBitFormat;
 
