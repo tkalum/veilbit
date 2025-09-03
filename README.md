@@ -1,7 +1,6 @@
 # Veilbit
 
-Veilbit is a privacy-focused data management tool that enables secure storage, sharing, and retrieval of sensitive information.  
-It provides a command-line interface for hiding messages inside image files using steganography.
+Veilbit is a tool that helps you hide secret messages inside images. It's designed for people who want to keep their information private and secure.
 
 ## Features
 
